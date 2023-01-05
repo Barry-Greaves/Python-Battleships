@@ -19,4 +19,14 @@ class PythonBattleships:
         elif self.difficulty == "hard":
             self.board_size = 12
             self.num_ships = 12
+    
+    def create_user_board(self):
+        """
+        Create battleships board for the player
+        """
+        for i in range(self.board_size):
+            self.user_board.append([])
+        for j in range(self.board_size):
+            self.user_board[i].append(".")
+    
         
