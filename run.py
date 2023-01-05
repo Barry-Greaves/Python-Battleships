@@ -1,4 +1,5 @@
 import random
+import time
 
 
 class PythonBattleships:
@@ -127,7 +128,6 @@ class PythonBattleships:
         """
         Prints player's board to CLI
         """
-        print("Your board:")
         for row in self.player_board:
             print(" ".join(row))
 
@@ -135,7 +135,7 @@ class PythonBattleships:
         """
         Prints computer's board to CLI
         """
-        print("The enemy's board:")
+        print("\nThe enemy's board:")
         for row in self.computer_board:
             print(" ".join(row))
 
@@ -149,6 +149,7 @@ class PythonBattleships:
 
 
 hit_statements = ["Direct hit! You sunk the enemey's battleship", "Success! You incinerated their ship", "The enemy is running scared, you destroyed their battleship!"]
+timer = ["................"]
 
 def main():
     """
@@ -160,6 +161,7 @@ def main():
         print("Goodbye!")
         exit()
 
+    name = input("Enter your name: ")
     difficulty = input("Please select your rank (Rookie, Lieutenant, Commander, Captain, Admiral): ")
     game = PythonBattleships(difficulty)
     game.create_player_board()
@@ -168,14 +170,26 @@ def main():
     game.place_ships_computer()
 
     while True:
+        print(f"\n{difficulty} {name}'s board:")
         game.print_player_board()
         game.print_computer_board()
-        row = int(input("Enter coordinates for torpedo launch, row: "))
+        row = int(input("\nEnter coordinates for torpedo launch, row: "))
         col = int(input("Enter coordinates for torpedo launch, column: "))
+        timer = ["................\n\n"]
+        for dots in timer: 
+            print(dots, end='', flush=True) 
+            time.sleep( 1 )
+
         if game.check_shot_computer(row, col):
             print(random.choice(hit_statements))
         else:
             print("Miss!")
+        
+        timer = ["................\n\n"]
+        for dots in timer: 
+            print(dots, end='', flush=True) 
+            time.sleep( 1 )
+
         if game.check_win_player():
             print("You win!")
             break
@@ -184,6 +198,12 @@ def main():
             print("The enemy hit your ship at {} {}!".format(row, col))
         else:
             print("The enemy missed your ship at {} {}.Now its time to take them out!".format(row, col))
+
+        timer = ["................\n\n"]
+        for dots in timer: 
+            print(dots, end='', flush=True) 
+            time.sleep( 1 )
+
         if game.check_win_computer():
             print("The enemy has defeated you!")
             break
