@@ -90,6 +90,18 @@ class PythonBattleships:
         else:
             self.player_board[row][col] = "M"
             return False
+
+    def check_win_player(self):
+        for row in self.hidden_computer_board:
+            if "S" in row:
+                return False
+        return True
+
+    def check_win_computer(self):
+        for row in self.player_board:
+            if "S" in row:
+                return False
+        return True
         
     
         
