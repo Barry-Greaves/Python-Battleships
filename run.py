@@ -1,6 +1,11 @@
 import random
 
+
 class PythonBattleships:
+    """
+    Contruct game class that defines difficulty level,
+    board size and number of ships
+    """
     def __init__(self, difficulty):
         self.difficulty = difficulty
         self.board_size = 0
@@ -92,12 +97,18 @@ class PythonBattleships:
             return False
 
     def check_win_player(self):
+        """
+        Check if the player has won the game
+        """
         for row in self.hidden_computer_board:
             if "S" in row:
                 return False
         return True
 
     def check_win_computer(self):
+        """
+        Check if the computer has won the game
+        """
         for row in self.player_board:
             if "S" in row:
                 return False
