@@ -21,15 +21,21 @@ class PythonBattleships:
         self.create_computer_board()
         self.place_ships_computer()
         
-        if self.difficulty == "easy":
+        if self.difficulty == "Rookie":
             self.board_size = 4
             self.num_ships = 4
-        elif self.difficulty == "medium":
-            self.board_size = 8
-            self.num_ships = 8
-        elif self.difficulty == "hard":
+        elif self.difficulty == "Lieutenant":
+            self.board_size = 6
+            self.num_ships = 6
+        elif self.difficulty == "Commander":
+            self.board_size = 10
+            self.num_ships = 10
+        elif self.difficulty == "Captain":
             self.board_size = 12
             self.num_ships = 12
+        elif self.difficulty == "Admiral":
+            self.board_size = 16
+            self.num_ships = 16
 
 
     def create_player_board(self):
@@ -129,7 +135,7 @@ class PythonBattleships:
         """
         Prints computer's board to CLI
         """
-        print("Computer's board:")
+        print("The enemy's board:")
         for row in self.computer_board:
             print(" ".join(row))
 
@@ -141,6 +147,9 @@ class PythonBattleships:
         col = random.randint(0, self.board_size - 1)
         return row, col
 
+
+hit_statements = ["Direct hit! You sunk the enemey's battleship", "Success! You incinerated their ship", "The enemy is running scared, you destroyed their battleship!"]
+
 def main():
     """
     Main function which initializes the game loop
@@ -151,7 +160,7 @@ def main():
         print("Goodbye!")
         exit()
 
-    difficulty = input("Please select a difficulty level (easy, medium, hard): ")
+    difficulty = input("Please select your rank (Rookie, Lieutenant, Commander, Captain, Admiral): ")
     game = PythonBattleships(difficulty)
     game.create_player_board()
     game.create_computer_board()
@@ -161,10 +170,10 @@ def main():
     while True:
         game.print_player_board()
         game.print_computer_board()
-        row = int(input("Enter row for shot: "))
-        col = int(input("Enter column for shot: "))
+        row = int(input("Enter coordinates for torpedo launch, row: "))
+        col = int(input("Enter coordinates for torpedo launch, column: "))
         if game.check_shot_computer(row, col):
-            print("Hit!")
+            print(random.choice(hit_statements))
         else:
             print("Miss!")
         if game.check_win_player():
@@ -172,11 +181,11 @@ def main():
             break
         row, col = game.computers_turn()
         if game.check_shot_player(row, col):
-            print("The computer hit your ship at {} {}!".format(row, col))
+            print("The enemy hit your ship at {} {}!".format(row, col))
         else:
-            print("The computer missed your ship at {} {}!".format(row, col))
+            print("The enemy missed your ship at {} {}.Now its time to take them out!".format(row, col))
         if game.check_win_computer():
-            print("The computer wins!")
+            print("The enemy has defeated you!")
             break
 
 
