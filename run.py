@@ -113,6 +113,62 @@ class PythonBattleships:
             if "S" in row:
                 return False
         return True
+
+    def print_player_board(self):
+        """
+        Prints player's board to CLI
+        """
+        print("Your board:")
+        for row in self.player_board:
+            print(" ".join(row))
+
+    def print_computer_board(self):
+        """
+        Prints computer's board to CLI
+        """
+        print("Computer's board:")
+        for row in self.computer_board:
+            print(" ".join(row))
+
+def main():
+    """
+    Main function which initializes the game loop
+    """
+    print("Welcome to Pyhton Battleships")
+    play = input("Would you like to play a game of battleships? (y/n) ")
+    if play.lower() == "n":
+        print("Goodbye!")
+        exit()
+
+    difficulty = input("Please select a difficulty level (easy, medium, hard): ")
+    game = PythonBattleships(difficulty)
+    game.create_player_board()
+    game.create_computer_board()
+    game.place_ships_player()
+    game.place_ships_computer()
+
+    while True:
+        game.print_player_board()
+        row = int(input("Enter row for shot: "))
+        col = int(input("Enter column for shot: "))
+        if game.check_shot_computer(row, col):
+            print("Hit!")
+        else:
+            print("Miss!")
+        if game.check_win_player():
+            print("You win!")
+            break
+        row, col = game.select_random_shot()
+        if game.check_shot_player(row, col):
+            print("The computer hit your ship at {} {}!".format(row, col))
+        else:
+            print("The computer missed your ship at {} {}!".format(row, col))
+        if game.check_win_computer():
+            print("The computer wins!")
+            break
+
+
+main()
         
     
         
