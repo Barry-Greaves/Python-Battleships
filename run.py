@@ -52,6 +52,20 @@ class PythonBattleships:
                     self.player_ships.append((row, col))
                     self.player_board[row][col] = "S"
                     placed = True
+
+    def place_ships_computer(self):
+        """
+        Place ships on computer's hidden board so the player cannot see them"
+        """
+        for i in range(self.num_ships):
+            placed = False
+            while not placed:
+                row = random.randint(0, self.board_size - 1)
+                col = random.randint(0, self.board_size - 1)
+                if self.hidden_computer_board[row][col] == ".":
+                    self.computer_ships.append((row, col))
+                    self.hidden_computer_board[row][col] = "S"
+                    placed = True
         
     
         
