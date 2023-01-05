@@ -15,21 +15,21 @@ class PythonBattleships:
         self.hidden_computer_board = []
         self.player_ships = []
         self.computer_ships = []
-        
-        if self.difficulty == "easy":
-            self.board_size = 2
-            self.num_ships = 1
-        elif self.difficulty == "medium":
-            self.board_size = 6
-            self.num_ships = 6
-        elif self.difficulty == "hard":
-            self.board_size = 8
-            self.num_ships = 8
-    
+
         self.create_player_board()
         self.place_ships_player()
         self.create_computer_board()
         self.place_ships_computer()
+        
+        if self.difficulty == "easy":
+            self.board_size = 4
+            self.num_ships = 4
+        elif self.difficulty == "medium":
+            self.board_size = 8
+            self.num_ships = 8
+        elif self.difficulty == "hard":
+            self.board_size = 12
+            self.num_ships = 12
 
 
     def create_player_board(self):
@@ -160,6 +160,7 @@ def main():
 
     while True:
         game.print_player_board()
+        game.print_computer_board()
         row = int(input("Enter row for shot: "))
         col = int(input("Enter column for shot: "))
         if game.check_shot_computer(row, col):
