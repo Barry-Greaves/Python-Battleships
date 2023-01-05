@@ -147,7 +147,7 @@ class PythonBattleships:
         col = random.randint(0, self.board_size - 1)
         return row, col
 
-
+valid_ranks = ["Rookie", "Lieutenant", "Commander", "Captain", "Admiral"]
 hit_statements = ["Direct hit! You sunk the enemey's battleship", "Success! You incinerated their ship", "The enemy is running scared, you destroyed their battleship!"]
 timer = ["................"]
 
@@ -156,13 +156,30 @@ def main():
     Main function which initializes the game loop
     """
     print("Welcome to Pyhton Battleships")
-    play = input("Would you like to play a game of battleships? (y/n) ")
-    if play.lower() == "n":
-        print("Goodbye!")
-        exit()
 
+    play = input("Would you like to play a game of battleships? Yes or No?")
+    while play.lower() != "y" and play.lower() != "yes":
+        play = input("Come on don't be a coward. Shall we play some battleships? Yes or No?")
+    
     name = input("Enter your name: ")
+    
     difficulty = input("Please select your rank (Rookie, Lieutenant, Commander, Captain, Admiral): ")
+    while difficulty not in valid_ranks:
+        print("Select your rank from the list provided. You must be a rookie right?")
+        difficulty = input("Please select your rank (Rookie, Lieutenant, Commander, Captain, Admiral): ")
+   
+    if difficulty == "Rookie":
+        print(f"\nHello Rookie {name}, don't mess this up.")
+    elif difficulty == "Lieutenant":
+        print(f"\nHello Lieutenant {name}, let's get locked and loaded.")
+    elif difficulty == "Commander":
+        print(f"\nHello Commander {name}, it is good to have you with us today, let's take em out!")
+    elif difficulty == "Captain":
+        print(f"\nHello Captain {name}, let's blow the enemy out of the water.")
+    elif difficulty == "Admiral":
+        print(f"\nHello Admiral {name}, it is an honour to be working with you")
+   
+
     game = PythonBattleships(difficulty)
     game.create_player_board()
     game.create_computer_board()
@@ -173,8 +190,17 @@ def main():
         print(f"\n{difficulty} {name}'s board:")
         game.print_player_board()
         game.print_computer_board()
-        row = int(input("\nEnter coordinates for torpedo launch, row: "))
-        col = int(input("Enter coordinates for torpedo launch, column: "))
+        row = int(input("\nEnter coordinates for torpedo launch: row (0-{}): ".format(game.board_size - 1)))
+        while row < 0 or row >= game.board_size:
+            print("Invalid row. Please enter a valid row.")
+            row = int(input("Enter row (0-{}): ".format(game.board_size - 1)))
+        col = int(input("Enter coordinates for torpedo launch: column (0-{}): ".format(game.board_size - 1)))
+        while col < 0 or col >= game.board_size:
+            print("Invalid column. Please enter a valid column.")
+            col = int(input("Enter column (0-{}): ".format(game.board_size - 1)))
+        break
+                
+
         timer = ["................\n\n"]
         for dots in timer: 
             print(dots, end='', flush=True) 
