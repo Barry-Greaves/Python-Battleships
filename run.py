@@ -66,6 +66,30 @@ class PythonBattleships:
                     self.computer_ships.append((row, col))
                     self.hidden_computer_board[row][col] = "S"
                     placed = True
+
+    def check_shot_player(self, row, col):
+        """
+        Check if the player's shot has hit one of the computer's battleships
+        """
+        if (row, col) in self.player_ships:
+            self.computer_board[row][col] = "X"
+            self.hidden_computer_board[row][col] = "X"
+            return True
+        else:
+            self.computer_board[row][col] = "M"
+            self.hidden_computer_board[row][col] = "M"
+            return False
+
+    def check_shot_computer(self, row, col):
+        """
+        Check if the player's shot has hit one of the computer's battleships
+        """
+        if (row, col) in self.player_ships:
+            self.player_board[row][col] = "X"
+            return True
+        else:
+            self.player_board[row][col] = "M"
+            return False
         
     
         
